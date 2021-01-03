@@ -76,7 +76,7 @@ void Landing::build()
           program_->AddLinearConstraint(node_list_[0]->decision_var_ptr_(4) == -2).evaluator().get());
 
   kinematics_constraints_.push_back(
-          program_->AddLinearConstraint(node_list_[node_num_-1]->decision_var_ptr_(3) == 0.88).evaluator().get());
+          program_->AddLinearConstraint(node_list_[node_num_-1]->decision_var_ptr_(3) == 0.75).evaluator().get());
 
   kinematics_constraints_.push_back(
           program_->AddLinearConstraint(node_list_[node_num_-1]->decision_var_ptr_(1) == 0.0).evaluator().get());
@@ -95,7 +95,7 @@ void Landing::build()
   drake::symbolic::Expression Cost;
 
   for (int i = 0; i < node_num_; ++i) {
-    Cost += drake::symbolic::pow(node_list_[i]->decision_var_ptr_(5), 2) + 0.5*drake::symbolic::pow(node_list_[i]->decision_var_ptr_(1), 2);
+    Cost += drake::symbolic::pow(node_list_[i]->decision_var_ptr_(5), 2) + 100000*drake::symbolic::pow(node_list_[i]->decision_var_ptr_(1), 2);
   }
   program_->AddCost(Cost);
 
